@@ -1,5 +1,5 @@
 from tensorflow.keras import backend as K
-
+from tensorflow import matmul
 from spektral.layers import ops
 from spektral.layers.convolutional.conv import Conv
 from spektral.utils import gcn_filter
@@ -98,7 +98,7 @@ class GCNConv(Conv):
         x, a = inputs
 
         output = K.dot(x, self.kernel)
-        output = ops.modal_dot(a, output)
+        output = matmul(a, output)
 
         if self.use_bias:
             output = K.bias_add(output, self.bias)
